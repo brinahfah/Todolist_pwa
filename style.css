@@ -1,7 +1,14 @@
 body {
     font-family: sans-serif;
     margin: 20px;
-    background-color: #f4f4f4;
+    background-color: #eb1313;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    overflow: hidden;
+    
 }
 
 .container {
