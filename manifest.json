@@ -2,8 +2,9 @@
     "name": "Ma Todolist",
     "short_name": "Todolist",
     "description": "Une simple todolist en tant que PWA.",
-    "start_url": "/",
+    "start_url": "./index.html",
     "display": "standalone",
+    "scope": "./",
     "background_color": "#4CAF50",
     "theme_color": "#4CAF50",
     "icons": [
