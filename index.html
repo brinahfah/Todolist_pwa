@@ -22,7 +22,9 @@
     <script>
         // Enregistrement du Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/Todolist_pwa/service-worker.js')
+            navigator.serviceWorker.register('/Todolist_pwa/service-worker.js',{
+              scope: '/Todolist_pwa/'
+            })
                 .then(registration => console.log('Service Worker enregistré avec succès:', registration))
                 .catch(error => console.log('Erreur lors de l\'enregistrement du Service Worker:', error));
         }
