@@ -2,19 +2,19 @@
     "name": "Ma Todolist",
     "short_name": "Todolist",
     "description": "Une simple todolist en tant que PWA.",
-    "start_url": "https://brinahfah.github.io/Todolist_pwa/index.html",
+    "start_url": "/Todolist_pwa/index.html",
     "display": "standalone",
-    "scope": "https://brinahfah.github.io/Todolist_pwa/",
+    "scope": "/Todolist_pwa/",
     "background_color": "#4CAF50",
     "theme_color": "#4CAF50",
     "icons": [
         {
-            "src": "https://brinahfah.github.io/Todolist_pwa/images/icon-192x192.png",
+            "src": "/Todolist_pwa/images/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "https://brinahfah.github.io/Todolist_pwa/images/icon-512x512.png",
+            "src": "/Todolist_pwa/images/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
