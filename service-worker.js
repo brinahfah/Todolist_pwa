@@ -1,12 +1,12 @@
-const CACHE_NAME = 'todolist-cache-v1';
+const CACHE_NAME = 'todolist-cache-v2';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/script.js',
-    '/manifest.json',
-    '/images/icon-192x192.png',
-    '/images/icon-512x512.png'
+    './',
+    './index.html',
+    './style.css',
+    './script.js',
+    './manifest.json',
+    './images/icon-192x192.png',
+    './images/icon-512x512.png'
 ];
 
 // Événement d'installation : mise en cache des ressources essentielles
