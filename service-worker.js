@@ -1,12 +1,12 @@
-const CACHE_NAME = 'todolist-cache-v3';
+const CACHE_NAME = 'todolist-cache-v4';
 const urlsToCache = [
-    'https://brinahfah.github.io/Todolist_pwa/',
-    'https://brinahfah.github.io/Todolist_pwa/index.html',
-    'https://brinahfah.github.io/Todolist_pwa/style.css',
-    'https://brinahfah.github.io/Todolist_pwa/script.js',
-    'https://brinahfah.github.io/Todolist_pwa/manifest.json',
-    'https://brinahfah.github.io/Todolist_pwa/images/icon-192x192.png',
-    'https://brinahfah.github.io/Todolist_pwa/icon-512x512.png'
+    '/Todolist_pwa/',
+    '/Todolist_pwa/index.html',
+    '/Todolist_pwa/style.css',
+    '/Todolist_pwa/script.js',
+    '/Todolist_pwa/manifest.json',
+    '/Todolist_pwa/images/icon-192x192.png',
+    '/Todolist_pwa/icon-512x512.png'
 ];
 
 // Événement d'installation : mise en cache des ressources essentielles
