@@ -98,3 +98,16 @@ button:hover {
 .task-actions .complete-btn:hover {
     background-color: #1976D2;
 }
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li span {
+  flex: 1;
+  margin-right: 10px;
+  color: #333;
+  font-size: 16px;
+}
