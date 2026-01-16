@@ -8,20 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addTaskBtn.addEventListener('click', addTask);
 
-     // Gestion du tutoriel modal
+    // Gestion du tutoriel modal
     const tutorialModal = document.getElementById('tutorialModal');
     const closeTutorialBtn = document.getElementById('closeTutorialBtn');
 
-    // Vérifier si le tutoriel a déjà été vu
-    const tutorialSeen = localStorage.getItem('tutorialSeen');
-
-    if (!tutorialSeen) {
-        tutorialModal.style.display = 'flex'; // afficher le modal
-    }
+    // Afficher le tutoriel à chaque chargement
+    tutorialModal.style.display = 'flex';
 
     closeTutorialBtn.addEventListener('click', () => {
         tutorialModal.style.display = 'none';
-        localStorage.setItem('tutorialSeen', 'true');
     });
 
     // Fonction pour demander la permission d'afficher des notifications
