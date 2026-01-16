@@ -38,8 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        return parsedTasks;
-   }
+    return parsedTasks;
+}
+
 
 
     function saveTasks() {
