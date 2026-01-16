@@ -39,6 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
         taskList.innerHTML = '';
         tasks.forEach((task, index) => {
             const listItem = document.createElement('li');
+
+            let dueDateDisplay = '';
+            if (task.dueDate) {
+                const date = new Date(task.dueDate);
+                dueDateDisplay = `<span class="due-date"> - Rappel prévu le ${date.toLocaleString()}</span>`;
+            }
+
             listItem.innerHTML = `
                 <span class="${task.completed ? 'completed' : ''}">${task.text}</span>
                 <div class="task-actions">
@@ -59,9 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addTask() {
         const newTaskText = newTaskInput.value.trim();
+        const dueDateInput = document.getElementById('dueDate');
+        const dueDateValue = dueDateInput.value; // format ISO local (ex: "2026-01-16T18:30")
+
         if (newTaskText !== '') {
-            tasks.push({ text: newTaskText, completed: false });
+            tasks.push({ 
+                text: newTaskText, 
+                completed: false,
+                dueDate: dueDateValue || null  // stocker la date ou null si pas renseigné
+            });
             newTaskInput.value = '';
+            dueDateInput.value = ''; // reset du champ date
             saveTasks();
             renderTasks();
         }
