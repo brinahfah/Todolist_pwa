@@ -8,10 +8,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
     addTaskBtn.addEventListener('click', addTask);
 
+    
+    const openFeedbackBtn = document.getElementById('openFeedbackBtn');
+    const feedbackModal = document.getElementById('feedbackModal');
+    const closeFeedbackBtn = document.getElementById('closeFeedbackBtn');
+    const sendFeedbackBtn = document.getElementById('sendFeedbackBtn');
+    const feedbackText = document.getElementById('feedbackText');
+
+    openFeedbackBtn.addEventListener('click', () => {
+        feedbackText.value = '';
+        feedbackModal.style.display = 'flex';
+    });
+
+    closeFeedbackBtn.addEventListener('click', () => {
+        feedbackModal.style.display = 'none';
+    });
+
+    sendFeedbackBtn.addEventListener('click', () => {
+        const message = feedbackText.value.trim();
+        if (message === '') {
+            alert('Veuillez saisir un message avant d’envoyer.');
+            return;
+        }
+
+        // Charger les anciens feedbacks depuis localStorage
+        let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+
+        // Ajouter le nouveau feedback avec date
+        feedbacks.push({
+            date: new Date().toISOString(),
+            message: message
+        });
+
+        // Sauvegarder dans localStorage
+        localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+
+        alert('Merci pour votre feedback !');
+        feedbackModal.style.display = 'none';
+    });
+
+    // Fermer modal en cliquant hors contenu
+    window.addEventListener('click', (e) => {
+        if (e.target === feedbackModal) {
+            feedbackModal.style.display = 'none';
+        }
+    });
+
     // Gestion du tutoriel modal
     const tutorialModal = document.getElementById('tutorialModal');
     const closeTutorialBtn = document.getElementById('closeTutorialBtn');
+    
+    const exportFeedbacksBtn = document.getElementById('exportFeedbacksBtn');
 
+    exportFeedbacksBtn.addEventListener('click', () => {
+        const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+
+        if (feedbacks.length === 0) {
+            alert('Aucun feedback à exporter.');
+            return;
+        }
+
+        const dataStr = JSON.stringify(feedbacks, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `feedbacks_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+
+        URL.revokeObjectURL(url);
+    });
+    
     // Afficher le tutoriel à chaque chargement
     tutorialModal.style.display = 'flex';
 

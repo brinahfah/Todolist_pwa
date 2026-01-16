@@ -19,6 +19,23 @@
         <ul id="taskList">
         </ul>
     </div>
+
+    <button id="openFeedbackBtn" class="feedback-btn">Envoyer un feedback</button>
+    <button id="exportFeedbacksBtn" class="feedback-btn">Exporter feedbacks</button>
+
+
+    <!-- Modal feedback -->
+    <div id="feedbackModal" class="modal">
+    <div class="modal-content">
+        <h2>Envoyer un feedback</h2>
+        <textarea id="feedbackText" rows="5" placeholder="Décrivez votre bug ou suggestion ici..."></textarea>
+        <div>
+        <button id="sendFeedbackBtn">Envoyer</button>
+        <button id="closeFeedbackBtn">Annuler</button>
+        </div>
+    </div>
+    </div>
+
     <script src="script.js"></script>
     <script>
         // Enregistrement du Service Worker
