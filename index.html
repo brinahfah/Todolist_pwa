@@ -30,5 +30,21 @@
                 .catch(error => console.log('Erreur lors de l\'enregistrement du Service Worker:', error));
         }
     </script>
+
+    <!-- Modal tutoriel -->
+    <div id="tutorialModal" class="modal">
+    <div class="modal-content">
+        <h2>Bienvenue sur Ma Todolist !</h2>
+        <p>Voici comment utiliser cette application :</p>
+        <ul>
+        <li>Ajoutez des tâches dans la barre en haut.</li>
+        <li>Vous pouvez définir une date et heure de rappel pour chaque tâche.</li>
+        <li>Recevez des notifications pour ne rien oublier.</li>
+        <li>Marquez les tâches comme faites ou supprimez-les.</li>
+        </ul>
+        <button id="closeTutorialBtn">J’ai compris</button>
+    </div>
+    </div>
+
 </body>
 </html>

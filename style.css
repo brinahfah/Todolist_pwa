@@ -106,6 +106,43 @@ button:hover {
     margin-left: 8px;
 }
 
+/* Style modal tutoriel */
+.modal {
+  display: none; /* caché par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+#closeTutorialBtn {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#closeTutorialBtn:hover {
+  background-color: #45a049;
+}
+
 
 @media (max-width: 600px) {
   .container {
