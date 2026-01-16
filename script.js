@@ -153,5 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Exécuter la vérification toutes les 15 minutes (900000 ms) 
-    setInterval(remindUncompletedTasks, 100000);
+    setInterval(remindUncompletedTasks, 900000);
 });
+
+
