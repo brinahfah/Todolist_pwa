@@ -25,11 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Demander la permission au chargement de la page
     requestNotificationPermission();
-
+     
     function loadTasks() {
         const storedTasks = localStorage.getItem('tasks');
-        return storedTasks ? JSON.parse(storedTasks) : [];
-    }
+        if (!storedTasks) return [];
+        const parsedTasks = JSON.parse(storedTasks);
+
+        // S’assurer que chaque tâche a un champ notified (pour les anciennes données)
+        parsedTasks.forEach(task => {
+            if (typeof task.notified === 'undefined') {
+                task.notified = false;
+            }
+        });
+
+        return parsedTasks;
+   }
+
 
     function saveTasks() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -73,7 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tasks.push({ 
                 text: newTaskText, 
                 completed: false,
-                dueDate: dueDateValue || null  // stocker la date ou null si pas renseigné
+                dueDate: dueDateValue || null,  // stocker la date ou null si pas 
+                notified: false  // ajout du flag de notification
             });
             newTaskInput.value = '';
             dueDateInput.value = ''; // reset du champ date
@@ -86,6 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const index = parseInt(event.target.dataset.index);
         const task = tasks[index];
         task.completed = !task.completed;
+
+        // Si on remet la tâche en non faite, reset la notification
+        if (!task.completed) {
+            task.notified = false;
+        }
+
+
         saveTasks();
         renderTasks();
 
@@ -114,14 +133,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Vérification et rappel des tâches non faites (à exécuter périodiquement)
-    function remindUncompletedTasks() {
+   function remindUncompletedTasks() {
+        const now = new Date();
+
         tasks.forEach(task => {
-            if (!task.completed && 'Notification' in window && Notification.permission === 'granted') {
-                showNotification(`Rappel : Tâche à faire - "${task.text}"`);
+            if (!task.completed && task.dueDate && !task.notified) {
+                const dueDate = new Date(task.dueDate);
+
+                if (now >= dueDate) {
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        showNotification(`Rappel : Tâche à faire - "${task.text}"`);
+                        task.notified = true; // on marque la tâche comme déjà notifiée
+                        saveTasks();
+                    }
+                }
             }
         });
     }
 
-    // Exécuter la vérification toutes les 5 minutes (300000 millisecondes) - Ajustez l'intervalle selon vos besoins
+    // Exécuter la vérification toutes les 15 minutes (900000 ms) 
     setInterval(remindUncompletedTasks, 900000);
 });
