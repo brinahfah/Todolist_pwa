@@ -79,6 +79,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
         URL.revokeObjectURL(url);
     });
+
+    const exportTasksBtn = document.getElementById('exportTasksBtn');
+    const importTasksBtn = document.getElementById('importTasksBtn');
+    const importTasksFile = document.getElementById('importTasksFile');
+
+    // Exporter les tâches au format JSON
+    exportTasksBtn.addEventListener('click', () => {
+        if (tasks.length === 0) {
+            alert('Aucune tâche à exporter.');
+            return;
+        }
+        const dataStr = JSON.stringify(tasks, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `tasks_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+
+        URL.revokeObjectURL(url);
+    });
+
+    // Ouvrir le dialogue fichier pour importer
+    importTasksBtn.addEventListener('click', () => {
+        importTasksFile.click();
+    });
+
+    // Gestion de l’import des tâches
+    importTasksFile.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const importedTasks = JSON.parse(e.target.result);
+                if (!Array.isArray(importedTasks)) {
+                    alert('Fichier invalide : format JSON attendu.');
+                    return;
+                }
+
+                // Demander confirmation avant remplacement
+                const confirmImport = confirm('Importer ce fichier remplacera vos tâches actuelles. Confirmez-vous ?');
+                if (!confirmImport) return;
+
+                // Remplacer les tâches et sauvegarder
+                tasks = importedTasks;
+                saveTasks();
+                renderTasks();
+                alert('Tâches importées avec succès !');
+            } catch (err) {
+                alert('Erreur lors de la lecture du fichier JSON.');
+            }
+        };
+        reader.readAsText(file);
+
+        // Reset input pour pouvoir réimporter le même fichier si besoin
+        event.target.value = '';
+    });
     
     // Afficher le tutoriel à chaque chargement
     tutorialModal.style.display = 'flex';
@@ -86,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
     closeTutorialBtn.addEventListener('click', () => {
         tutorialModal.style.display = 'none';
     });
+
+
 
     // Fonction pour demander la permission d'afficher des notifications
     function requestNotificationPermission() {

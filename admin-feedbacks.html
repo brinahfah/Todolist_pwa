@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin - Consultation Feedbacks</title>
+    <link rel="stylesheet" href="CSS/design_admin.css">
+</head>
+<body>
+    <h1>Consultation des Feedbacks</h1>
+
+    <p>Importez le fichier JSON exporté depuis la Todolist :</p>
+    <input type="file" id="fileInput" accept=".json" />
+
+    <div id="feedbacksList"></div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const feedbacksList = document.getElementById('feedbacksList');
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const feedbacks = JSON.parse(e.target.result);
+
+                    if (!Array.isArray(feedbacks) || feedbacks.length === 0) {
+                        feedbacksList.innerHTML = '<p>Aucun feedback trouvé dans ce fichier.</p>';
+                        return;
+                    }
+
+                    const html = feedbacks.map(fb => {
+                        const date = new Date(fb.date).toLocaleString();
+                        const message = fb.message.replace(/\n/g, '<br>');
+                        return `
+                            <div class="feedback-item">
+                                <div class="feedback-date">${date}</div>
+                                <div class="feedback-message">${message}</div>
+                            </div>
+                        `;
+                    }).join('');
+                    feedbacksList.innerHTML = html;
+                } catch (err) {
+                    feedbacksList.innerHTML = '<p style="color:red;">Erreur de lecture du fichier JSON.</p>';
+                }
+            };
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
