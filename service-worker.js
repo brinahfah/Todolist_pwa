@@ -1,33 +1,43 @@
-const CACHE_NAME = 'todolist-cache-v5';
+const CACHE_NAME = 'todolist-cache-v6';
 
 const urlsToCache = [
-  '/Todolist_pwa/',
-  '/Todolist_pwa/index.html',
-  '/Todolist_pwa/style.css',
-  '/Todolist_pwa/script.js',
-  '/Todolist_pwa/manifest.json',
-  '/Todolist_pwa/images/icon-192x192.png',
-  '/Todolist_pwa/images/icon-512x512.png'
+  './',
+  './index.html',
+  './CSS/style.css',
+  './script.js',
+  './manifest.json',
+  './images/icon-192x192.png',
+  './images/icon-512x512.png'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Cache ouvert');
+        return cache.addAll(urlsToCache);
+      })
+      .catch(err => console.error('Erreur cache:', err))
   );
 });
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
 });
 
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+      Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      )
     )
   );
 });

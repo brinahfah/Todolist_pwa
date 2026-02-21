@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
     margin: 20px;
-    background-color: #eb1313;
+    background-color: #befa57;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,6 +9,11 @@ body {
     /*color: #fff;*/
     overflow: hidden;
     
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
@@ -19,6 +24,14 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     color: #333;
+}
+
+.top{
+  display: flex;
+}
+
+.down{
+  display: flex;
 }
 
 h1 {
@@ -44,10 +57,18 @@ button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 1px 5px;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
     font-size: 16px;
+}
+
+#openFeedbackBtn,
+#exportFeedbacksBtn, 
+#exportTasksBtn,
+#importTasksBtn{
+  width: 180px;
+  height: 60px;
 }
 
 button:hover {
@@ -199,6 +220,11 @@ button:hover {
   .container {
     width: 90%;
     padding: 15px;
+  }
+
+  .content{
+    display: flex;
+    flex: 1;
   }
   
   input[type="text"], button {

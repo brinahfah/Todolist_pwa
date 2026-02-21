@@ -9,23 +9,37 @@
     <link rel="apple-touch-icon" href="images/icon-192x192.png"> <meta name="theme-color" content="#4CAF50"> 
 </head>
 <body>
-    <div class="container">
-        <h1>Ma Todolist</h1>
-        <div class="input-section">
-            <input type="text" id="newTask" placeholder="Ajouter une tâche">
-            <input type="datetime-local" id="dueDate" aria-label="Date et heure de rappel">
-            <button id="addTaskBtn">Ajouter</button>
+
+    <div class="content">
+
+        <div class="container">
+                <h1>Ma Todolist</h1>
+                <div class="input-section">
+                    <input type="text" id="newTask" placeholder="Ajouter une tâche">
+                    <input type="datetime-local" id="dueDate" aria-label="Date et heure de rappel">
+                    <button id="addTaskBtn">Ajouter</button>
+                </div>
+                <ul id="taskList">
+                </ul>
         </div>
-        <ul id="taskList">
-        </ul>
+         
+            <div class="top">
+                <button id="openFeedbackBtn" class="feedback-btn">Envoyer un feedback</button>
+                <button id="exportFeedbacksBtn" class="feedback-btn">Exporter feedbacks</button>
+            </div>
+                
+            <div class="down">
+                <button id="exportTasksBtn" class="feedback-btn">Exporter les tâches</button>
+                <button id="importTasksBtn" class="feedback-btn">Importer des tâches</button>
+            </div>
+        
+
+       
+                
+        <input type="file" id="importTasksFile" accept=".json" style="display:none;" />
+
     </div>
-
-    <button id="openFeedbackBtn" class="feedback-btn">Envoyer un feedback</button>
-    <button id="exportFeedbacksBtn" class="feedback-btn">Exporter feedbacks</button>
-    <button id="exportTasksBtn" class="feedback-btn">Exporter les tâches</button>
-    <button id="importTasksBtn" class="feedback-btn">Importer des tâches</button>
-    <input type="file" id="importTasksFile" accept=".json" style="display:none;" />
-
+    
 
     <!-- Modal feedback -->
     <div id="feedbackModal" class="modal">
@@ -43,9 +57,7 @@
     <script>
         // Enregistrement du Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/Todolist_pwa/service-worker.js',{
-              scope: '/Todolist_pwa/'
-            })
+            navigator.serviceWorker.register('./service-worker.js')
                 .then(registration => console.log('Service Worker enregistré avec succès:', registration))
                 .catch(error => console.log('Erreur lors de l\'enregistrement du Service Worker:', error));
         }

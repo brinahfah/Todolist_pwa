@@ -293,6 +293,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function requestNotificationPermission() {
+        if (!('Notification' in window)) return;
+
+        if (Notification.permission === 'denied') {
+            console.warn("Notifications bloquées par le navigateur.");
+            return;
+        }
+
+        if (Notification.permission === 'default') {
+            Notification.requestPermission().then(permission => {
+                console.log("Permission :", permission);
+            });
+        }
+    }
+
     // Exécuter la vérification toutes les 15 minutes (900000 ms) 
     setInterval(remindUncompletedTasks, 900000);
 });
